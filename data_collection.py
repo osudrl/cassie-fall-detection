@@ -22,7 +22,7 @@ parser.add_argument("--id", type=int, help="ID for parallelization")
 args = parser.parse_args()
 
 env = partial(CassieStandingEnv, "stepping", simrate=60, state_est=True)()
-policy = torch.load('./trained_models/standing_policy_humanoid_paper.pt')
+policy = torch.load('./trained_models_rl/standing_policy_humanoid_paper.pt')
 
 
 state_vector = []
@@ -42,7 +42,7 @@ for i in range(1000):
             state_vector.append(env.get_full_state().tolist())
         action = policy.act(state, True)
         state, reward, done, info = env.step(np.ndarray.flatten(np.array(action)))
-        env.render()
+        # env.render()
         if j == 199:
             if env.sim.qpos()[2] < 0.75:
                 state_labels.append(np.ones(50).tolist())
