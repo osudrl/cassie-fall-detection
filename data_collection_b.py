@@ -38,7 +38,7 @@ for i in range(1000):
             print(x, y)
         state = torch.Tensor(state)
         if j > 30 and j <= 80:
-            state_vector.append(env.get_full_state("stepping").tolist())
+            state_vector.append(env.get_full_state("standing").tolist())
         _, action = policy.act(state, True)
         state, reward, done, info = env.step(np.ndarray.flatten(np.array(action)), "stepping")
         # env.render()
