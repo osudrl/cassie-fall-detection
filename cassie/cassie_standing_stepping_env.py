@@ -295,6 +295,7 @@ class CassieStandingSteppingEnv:
                 return robot_state  
             elif policy == "stepping":
                 return np.concatenate([robot_state, ext_state])
+            print("ERROR")
         else:
             return np.concatenate([qpos[pos_index], 
                                qvel[vel_index]])

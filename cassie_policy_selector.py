@@ -28,10 +28,12 @@ def impulse(i):
 factor = 10
 
 state = env.reset('standing')
+print(state)
 for i in range(10 ** 10):
     env.sim.apply_force([200 * impulse(i), 200 * impulse(i), 0, 0, 0, 0])
+    print(state)
     state = torch.Tensor(state)
-    # print(model(state[0:46].unsqueeze(0).float()))
+    print(torch.norm(model(state[0:46].unsqueeze(0).float())))
     if torch.norm(model(state[0:46].unsqueeze(0).float())) > 0.5:
         _, action = policy_step.act(torch.from_numpy(env.get_full_state('stepping')).float(), deterministic = True)
         state, reward, done, info = env.step(action.data.numpy(), 'stepping')
@@ -40,6 +42,5 @@ for i in range(10 ** 10):
         state, reward, done, info = env.step(action.data.numpy(), 'standing')
     env.render()
     # if i == 0:
-    #     input()
-    
+    #     input()    
 env.close()
